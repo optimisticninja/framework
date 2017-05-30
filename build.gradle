@@ -1,20 +1,31 @@
+buildscript {
+     repositories {
+         
+     }
+     dependencies {
+     }
+ }
+
+buildscript {
+  repositories {
+   	jcenter()
+  }
+  dependencies {
+    classpath 'net.researchgate:gradle-release:2.4.0'
+    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    
+  }
+}
+
+apply plugin: 'net.researchgate.release'
+
 group = 'ninja.optimistic.framework'
 version = '0.0.1'
 
-buildscript {
-     repositories {
-         jcenter()
-     }
-     dependencies {
-         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-         classpath 'net.researchgate:gradle-release:2.4.0'
-     }
-}
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'java-library'
 apply plugin: 'com.bmuschko.nexus'
-apply plugin: 'net.researchgate.release'
 
 repositories {
 	mavenLocal()
@@ -52,9 +63,8 @@ jar {
          inceptionYear '2012'
 
          scm {
-             url 'https://github.com/bmuschko/gradle-nexus-plugin'
-             connection 'scm:https://bmuschko@github.com/bmuschko/gradle-nexus-plugin.git'
-             developerConnection 'scm:git://github.com/bmuschko/gradle-nexus-plugin.git'
+             connection 'scm:git@git:framework.git'
+             developerConnection 'scm:git@git:framework.git'
          }
 
          licenses {
