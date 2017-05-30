@@ -1,0 +1,11 @@
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply from: '../../framework/gradle-snippets/generateWebXml.gradle'
+apply from: '../../framework/gradle-snippets/jettyServer.gradle'
+
+group = 'ninja.optimistic.framework.example.server'
+version = '0.0.1'
+description = 'Example Brain API'
+project.ext.set('applicationPath', 'brain')

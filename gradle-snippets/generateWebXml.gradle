@@ -1,0 +1,33 @@
+buildscript {
+	repositories() {
+		jcenter()
+		mavenLocal()
+	}
+	
+	dependencies {
+		classpath 'ninja.optimistic.framework:framework:0.0.1'
+	}
+}
+
+repositories {
+	mavenLocal()
+    jcenter()
+}
+
+task(generateWebXml) {
+	doLast {
+		def webDescriptor = new ninja.optimistic.framework.generators.WebDescriptor()
+		webDescriptor.generateWebDescriptor(
+			rootProject.findProperty('description'),
+			rootProject.findProperty('group'),
+			rootProject.findProperty('applicationPath')
+		)
+	}
+}
+
+war {
+	webXml = file(ninja.optimistic.framework.generators.WebDescriptor.OUTPUT_FULL_PATH)
+}
+
+
+tasks['war'].dependsOn('generateWebXml')
