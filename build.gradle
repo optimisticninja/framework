@@ -50,8 +50,8 @@ jar {
 
  modifyPom {
      project {
-         name 'Web Application Framework'
-         inceptionYear '2012'
+         name 'J Ninja\'s Web Application Framework - Based on a design by Mike Sanchez'
+         inceptionYear '2017'
 
          scm {
              connection 'git@git:framework.git'
