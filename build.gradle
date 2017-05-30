@@ -55,24 +55,8 @@ jar {
          inceptionYear '2012'
 
          scm {
-             connection 'scm:git@git:framework.git'
-             developerConnection 'scm:git@git:framework.git'
-         }
-
-         licenses {
-             license {
-                 name 'The Apache Software License, Version 2.0'
-                 url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                 distribution 'repo'
-             }
-         }
-
-         developers {
-             developer {
-                 id 'bmuschko'
-                 name 'Benjamin Muschko'
-                 email 'benjamin.muschko@gmail.com'
-             }
+             connection 'git@git:framework.git'
+             developerConnection 'git@git:framework.git'
          }
      }
  }
