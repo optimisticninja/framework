@@ -56,7 +56,7 @@ jar {
  }
  
  extraArchive {
-     sources = false
+     sources = true
      tests = true
      javadoc = false
  }
