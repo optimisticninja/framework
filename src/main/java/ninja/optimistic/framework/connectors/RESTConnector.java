@@ -8,8 +8,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
@@ -26,11 +24,6 @@ public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnect
 		this.responseType = responseType;
 		this.client = ClientBuilder.newClient(clientConfig);
 		this.webTarget = client.target(url.toString());
-	}
-
-	@Override
-	public O delegate(I input) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
