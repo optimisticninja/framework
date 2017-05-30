@@ -1,9 +1,12 @@
 buildscript {
-  repositories {
-   	jcenter()
-  }
-  dependencies {
-    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+ 	repositories {
+   		maven {
+          url "http://nexus:8081/repository/maven-public/"
+    	}
+  	}
+  	
+  	dependencies {
+    	classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
   }
 }
 
@@ -16,8 +19,10 @@ apply plugin: 'java-library'
 apply plugin: 'com.bmuschko.nexus'
 
 repositories {
-	mavenLocal()
-    jcenter()
+	maven {
+          url "http://nexus:8081/repository/maven-public/"
+    }
+    mavenLocal()
 }
 
 sourceCompatibility = 1.8
@@ -63,6 +68,6 @@ jar {
 
  nexus {
      sign = false
-     repositoryUrl = 'http://nexus:8081/repository/maven-snapshots/'
+     repositoryUrl = 'http://nexus:8081/repository/maven-releases/'
      snapshotRepositoryUrl = 'http://nexus:8081/repository/maven-snapshots/'
  }
