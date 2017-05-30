@@ -1,9 +1,21 @@
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'java-library'
+apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'net.researchgate.release'
 
 group = 'ninja.optimistic.framework'
 version = '0.0.1'
+
+buildscript {
+     repositories {
+         jcenter()
+     }
+     dependencies {
+         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+         classpath 'net.researchgate:gradle-release:2.4.0'
+     }
+}
 
 repositories {
 	mavenLocal()
@@ -30,6 +42,48 @@ dependencies {
 
 jar {
     baseName = 'framework'
-    version =  '0.0.1'
+    version =  '0.0.1-SNAPSHOT'
 }
 
+ modifyPom {
+     project {
+         name 'Gradle Sonatype Nexus plugin'
+         description 'Gradle plugin that provides tasks for configuring and uploading artifacts to Sonatype Nexus.'
+         url 'https://github.com/bmuschko/gradle-nexus-plugin'
+         inceptionYear '2012'
+
+         scm {
+             url 'https://github.com/bmuschko/gradle-nexus-plugin'
+             connection 'scm:https://bmuschko@github.com/bmuschko/gradle-nexus-plugin.git'
+             developerConnection 'scm:git://github.com/bmuschko/gradle-nexus-plugin.git'
+         }
+
+         licenses {
+             license {
+                 name 'The Apache Software License, Version 2.0'
+                 url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                 distribution 'repo'
+             }
+         }
+
+         developers {
+             developer {
+                 id 'bmuschko'
+                 name 'Benjamin Muschko'
+                 email 'benjamin.muschko@gmail.com'
+             }
+         }
+     }
+ }
+ 
+ extraArchive {
+     sources = false
+     tests = true
+     javadoc = false
+ }
+
+ nexus {
+     sign = false
+     repositoryUrl = 'http://nexus:8081/repository/maven-snapshots/'
+     snapshotRepositoryUrl = 'http://nexus:8081/repository/maven-snapshots/'
+ }
