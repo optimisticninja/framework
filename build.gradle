@@ -1,9 +1,3 @@
-apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'java-library'
-apply plugin: 'com.bmuschko.nexus'
-apply plugin: 'net.researchgate.release'
-
 group = 'ninja.optimistic.framework'
 version = '0.0.1'
 
@@ -16,6 +10,11 @@ buildscript {
          classpath 'net.researchgate:gradle-release:2.4.0'
      }
 }
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'java-library'
+apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'net.researchgate.release'
 
 repositories {
 	mavenLocal()
