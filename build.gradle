@@ -3,16 +3,12 @@ buildscript {
    	jcenter()
   }
   dependencies {
-    classpath 'net.researchgate:gradle-release:2.4.0'
     classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-    
   }
 }
 
-apply plugin: 'net.researchgate.release'
-
 group = 'ninja.optimistic.framework'
-version = '0.0.1'
+version = '0.0.1-SNAPSHOT'
 
 apply plugin: 'maven'
 apply plugin: 'eclipse'
@@ -44,14 +40,12 @@ dependencies {
 
 jar {
     baseName = 'framework'
-    version =  '0.0.1-SNAPSHOT'
+    version =  rootProject.version
 }
 
  modifyPom {
      project {
-         name 'Gradle Sonatype Nexus plugin'
-         description 'Gradle plugin that provides tasks for configuring and uploading artifacts to Sonatype Nexus.'
-         url 'https://github.com/bmuschko/gradle-nexus-plugin'
+         name 'Web Application Framework'
          inceptionYear '2012'
 
          scm {
