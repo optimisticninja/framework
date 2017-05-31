@@ -41,7 +41,9 @@ public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnect
 	public O post(String path, I request) {
 		O response = null;
 		WebTarget currentTarget = this.webTarget.path(path);
-	    response = (O) currentTarget.request().post(Entity.entity(request, MediaType.APPLICATION_JSON));
+		Invocation.Builder invocationBuilder = currentTarget.request(MediaType.APPLICATION_JSON_TYPE);
+		Response response1 = invocationBuilder.post(Entity.json(request));
+	    response = (O) response1.readEntity(responseType);
 	    return response;
 	}
 }
