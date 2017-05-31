@@ -4,10 +4,6 @@ public abstract class Response<T> implements IResponse<T> {
 	private boolean status;
 	private T payload;
 	
-	protected Response() {
-		
-	}
-	
 	protected Response(boolean status) {
 		this.status = status;
 	}
