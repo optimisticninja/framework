@@ -1,15 +1,15 @@
 package ninja.optimistic.framework.model.request;
 
 public abstract class Request<T> implements IRequest<T> {
-	private T payload;
+	private boolean status;
 	
 	@Override
-	public T getPayload() {
-		return this.payload;
+	public boolean getStatus() {
+		return this.status;
 	}
 	
 	@Override
-	public void setPayload(T payload) {
-		this.payload = payload;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

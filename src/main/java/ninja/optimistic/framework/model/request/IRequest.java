@@ -1,6 +1,6 @@
 package ninja.optimistic.framework.model.request;
 
 public interface IRequest<T> {
-	public T 	getPayload();
-	public void	setPayload(T payload);
+	public boolean getStatus();
+	public void setStatus(boolean status);
 }
