@@ -36,7 +36,6 @@ public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnect
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public O post(String path, I request) {
 		O response = null;
