@@ -1,4 +1,4 @@
-package ninja.optimistic.framework.actors.delegators;
+package ninja.optimistic.framework.delegators;
 
 import java.util.HashMap;
 import java.util.Iterator;
