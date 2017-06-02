@@ -1,6 +1,7 @@
 package ninja.optimistic.framework.connectors;
 
 import java.net.URL;
+import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -13,6 +14,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 
 public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnector<I, O> {
+	private static final Logger log = Logger.getLogger(RESTConnector.class.getName());
+
 	private Class<O> responseType;
 	private Client client;
 	private ClientConfig clientConfig;
@@ -39,6 +42,7 @@ public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnect
 	@Override
 	public O post(String path, I request) {
 		O response = null;
+		log.info(path);
 		WebTarget currentTarget = this.webTarget.path(path);
 		Invocation.Builder invocationBuilder = currentTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response response1 = invocationBuilder.post(Entity.json(request));
