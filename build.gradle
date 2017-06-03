@@ -44,8 +44,8 @@ dependencies {
 }
 
 jar {
-    baseName = 'framework'
-    version =  rootProject.version
+    baseName = project.name
+    version =  project.version
 }
 
  modifyPom {

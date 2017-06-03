@@ -8,27 +8,26 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 public abstract class RESTServer implements ninja.optimistic.framework.servers.Server, IRESTServer {
 	private static final Logger log = Logger.getLogger(RESTServer.class.getName());
+	private static final String JERSEY_PROVIDER = "jersey.config.server.provider.classnames";
+
 	private org.eclipse.jetty.server.Server server;
 
-	protected RESTServer(int port, Class<?> api) {
+	protected RESTServer(int port, Class<?> api, String path) {
 		this.server = new org.eclipse.jetty.server.Server(port);
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/framework-example-server/brain");
+		context.setContextPath(path);
 		server.setHandler(context);
 		ServletHolder servlet = context.addServlet(ServletContainer.class, "/*");
 		servlet.setInitOrder(0);
-		servlet.setInitParameter("jersey.config.server.provider.classnames", api.getCanonicalName());
+		servlet.setInitParameter(JERSEY_PROVIDER, api.getCanonicalName());
 	}
 
 	@Override
 	public void serve() {
 		try {
 			server.start();
-			server.join();
 		} catch (Exception e) {
 			log.info(e.getStackTrace().toString());
-		} finally {
-			server.destroy();
 		}
 	}
 	
@@ -40,6 +39,14 @@ public abstract class RESTServer implements ninja.optimistic.framework.servers.S
 	
 	@Override
 	public void close() {
-		throw new UnsupportedOperationException();
+		try {
+			server.stop();
+			server.destroy();
+		} catch (InterruptedException e) {
+			log.info(e.getStackTrace().toString());
+		} catch (Exception e) {
+			log.info(e.getStackTrace().toString());
+
+		}
 	}
 }
