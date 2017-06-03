@@ -16,7 +16,7 @@ public class Delegator<I, O, A> implements IDelegator<I, O, A> {
 		this.registrar = new HashMap<>();
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public O delegate(I input) {
 		O ret = null;
@@ -37,8 +37,7 @@ public class Delegator<I, O, A> implements IDelegator<I, O, A> {
 		
 		return ret;
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void register(Class<?> input, IActor<I, O> actor) {
 		this.registrar.put(input, (A) actor);

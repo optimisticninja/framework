@@ -1,21 +1,10 @@
 package ninja.optimistic.framework.model.response;
 
-public abstract class Response<T> implements IResponse<T> {
+public abstract class Response implements IResponse {
 	private boolean status;
-	private T payload;
 	
 	protected Response(boolean status) {
 		this.status = status;
-	}
-	
-	@Override
-	public T getPayload() {
-		return this.payload;
-	}
-
-	@Override
-	public void setPayload(T payload) {
-		this.payload = payload;
 	}
 	
 	@Override
