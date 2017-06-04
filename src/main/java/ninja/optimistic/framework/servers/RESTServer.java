@@ -2,6 +2,10 @@ package ninja.optimistic.framework.servers;
 
 import java.util.logging.Logger;
 
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -13,7 +17,14 @@ public abstract class RESTServer implements ninja.optimistic.framework.servers.S
 	private org.eclipse.jetty.server.Server server;
 
 	protected RESTServer(int port, Class<?> api, String path) {
-		this.server = new org.eclipse.jetty.server.Server(port);
+    	this.server = new org.eclipse.jetty.server.Server(port);
+    	ResourceHandler resourceHandler = new ResourceHandler();
+    	resourceHandler.setDirectoriesListed(true);
+    	resourceHandler.setWelcomeFiles(new String[]{ "index.html" });
+    	resourceHandler.setResourceBase("./src/main/webapp");
+    	HandlerList handlers = new HandlerList();
+    	handlers.setHandlers(new Handler[] { resourceHandler, new DefaultHandler()});
+    	server.setHandler(handlers);
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath(path);
 		server.setHandler(context);
