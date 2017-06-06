@@ -2,9 +2,7 @@ package ninja.optimistic.framework.servers;
 
 import java.util.logging.Logger;
 
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -17,20 +15,28 @@ public abstract class RESTServer implements ninja.optimistic.framework.servers.S
 	private org.eclipse.jetty.server.Server server;
 
 	protected RESTServer(int port, Class<?> api, String path) {
+		// Server
     	this.server = new org.eclipse.jetty.server.Server(port);
-    	ResourceHandler resourceHandler = new ResourceHandler();
-    	resourceHandler.setDirectoriesListed(true);
-    	resourceHandler.setWelcomeFiles(new String[]{ "index.html" });
-    	resourceHandler.setResourceBase("./src/main/webapp");
-    	HandlerList handlers = new HandlerList();
-    	handlers.setHandlers(new Handler[] { resourceHandler, new DefaultHandler()});
-    	server.setHandler(handlers);
-		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath(path);
-		server.setHandler(context);
-		ServletHolder servlet = context.addServlet(ServletContainer.class, "/*");
+    	
+    	// REST
+		ServletContextHandler restHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		restHandler.setContextPath(path);
+		
+		ServletHolder servlet = restHandler.addServlet(ServletContainer.class, "/rest/*");
 		servlet.setInitOrder(0);
 		servlet.setInitParameter(JERSEY_PROVIDER, api.getCanonicalName());
+		
+		 // Web
+        ResourceHandler webHandler = new ResourceHandler();
+        webHandler.setDirectoriesListed(true);
+        webHandler.setResourceBase("src/main/webapp");
+        webHandler.setWelcomeFiles(new String[]{"index.html"});
+       
+        // Server
+        HandlerCollection handlers = new HandlerCollection();
+        handlers.addHandler(webHandler);
+        handlers.addHandler(restHandler);
+        server.setHandler(handlers);
 	}
 
 	@Override
