@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-public class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnector<I, O> {
+public abstract class RESTConnector<I, O> extends Connector<I, O> implements IRESTConnector<I, O> {
 	private static final Logger log = Logger.getLogger(RESTConnector.class.getName());
 
 	private Class<O> responseType;
