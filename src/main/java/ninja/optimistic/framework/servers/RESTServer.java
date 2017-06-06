@@ -16,31 +16,15 @@ public abstract class RESTServer implements ninja.optimistic.framework.servers.S
 	private org.eclipse.jetty.server.Server server;
 
 	protected RESTServer(int port, Class<?> api, String path) {
-		// Server
 		this.server = new org.eclipse.jetty.server.Server(port);
-
-		// REST
-		ServletContextHandler restHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		restHandler.setContextPath(path);
-		WebAppContext context = new WebAppContext();
-		context.setResourceBase("src/main/webapp");
-		ServletHolder servlet = restHandler.addServlet(ServletContainer.class, "/rest/*");
-		servlet.setInitOrder(0);
-		servlet.setInitParameter(JERSEY_PROVIDER, api.getCanonicalName());
-
-		// Web
-		ResourceHandler webHandler = new ResourceHandler();
-		webHandler.setDirectoriesListed(true);
-		webHandler.setResourceBase("src/main/webapp");
-		webHandler.setWelcomeFiles(new String[] { "index.html" });
-
-		// Server
+		WebAppContext webAppContext = new WebAppContext();
+		webAppContext.setResourceBase("src/main/webapp");
+		ServletHolder restServlet = webAppContext.addServlet(ServletContainer.class, "/rest/*");
+		restServlet.setInitOrder(0);
+		restServlet.setInitParameter(JERSEY_PROVIDER, api.getCanonicalName());
 		HandlerCollection handlers = new HandlerCollection();
-		handlers.addHandler(context);
-		// handlers.addHandler(webHandler);
-		handlers.addHandler(restHandler);
+		handlers.addHandler(webAppContext);
 		server.setHandler(handlers);
-
 	}
 
 	@Override
