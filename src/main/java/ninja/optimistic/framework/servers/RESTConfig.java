@@ -1,4 +1,4 @@
-package ninja.optimistic.framework.servers.config;
+package ninja.optimistic.framework.servers;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
